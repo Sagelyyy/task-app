@@ -1,4 +1,7 @@
+import React from 'react'
 import './App.css';
+import Overview from './components/Overview';
+import { nanoid } from 'nanoid';
 
 function App() {
 
@@ -11,7 +14,9 @@ function App() {
 
   return (
     <div className="App">
-
+        <input></input>
+        <button>Submit</button>
+        <Overview />
     </div>
   );
 }
