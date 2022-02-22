@@ -45,7 +45,7 @@ function App() {
         <form>
           <input 
           onChange={handleChange}
-          // value={} this is not working for some reason.
+          value={taskData.map(item => {return item.task ? item.task :  ' '})} //this is not working for some reason.
           id='taskInput'
           ></input>
           <button onClick={onSubmitTask}>Submit</button>
