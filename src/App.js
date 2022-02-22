@@ -5,49 +5,54 @@ import { nanoid } from 'nanoid';
 
 function App() {
 
-  const [task, setTask] = React.useState([    
+  const [taskData, setTaskData] = React.useState([    
     {
-      currTask: {text: ''},
+      task: {text: '', id: nanoid()},
       tasks: [],
-      id: nanoid()
     }
   ]
   )
 
   function handleChange(e){
     const {value} = e.target
-    setTask(old => {
-      return old.map(item => {return {...item, currTask: value}})
+    setTaskData(old => {
+      return old.map(item => {return {...item, task: e.target.value}})
     })
   }
 
   function onSubmitTask(e){
     e.preventDefault();
-    setTask(old => {
-      return old.map(item => {return {...item, tasks: [...item.tasks, item.currTask]}})
+    setTaskData(old => {
+      return old.map(item => {return {...item, tasks: [...item.tasks, item.task]}})
     })
   };
 
-  console.log(task)
-  const taskElements = task.map(item => {
+  console.log(taskData)
+  console.log(taskData.map(item => {return item.task}))
+  const taskElements = taskData.map(item => {
     return(
-      <Overview 
-        text={item.tasks}
-        key={item.id}
-        />
+      item.tasks.map(arr => {
+        return (<Overview 
+        text={arr}
+        key={nanoid()}
+        />)
+      })
     )
   })
   return (
     <div className="App">
+      <h1 className='App--title'>Task App</h1>
         <form>
           <input 
           onChange={handleChange}
-          value={task.text}
+          // value={} this is not working for some reason.
           id='taskInput'
           ></input>
           <button onClick={onSubmitTask}>Submit</button>
         </form>
-      {task[0].tasks.length > 0 ? taskElements : 'Submit a new task!'}
+        <div className='App--elements'>
+          {taskData[0].tasks.length > 0 ? taskElements : 'Submit a new task!'}
+      </div>
     </div>
   );
 }
